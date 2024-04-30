@@ -14,3 +14,54 @@
     <button id="forward">=></button>
   </body>
 </html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Monsters</title>
+</head>
+<body>
+  <div id="monster-container"></div>
+
+  <script>
+    // Fetch monster data from the server
+    fetch('https://api.example.com/monsters')
+      .then(response => response.json())
+      .then(data => {
+        // Select the container element
+        const container = document.getElementById('monster-container');
+
+        // Loop through the first 50 monsters
+        data.slice(0, 50).forEach(monster => {
+          // Create HTML elements to display monster information
+          const monsterElement = document.createElement('div');
+          monsterElement.innerHTML = `
+            <h3>${monster.name}</h3>
+            <p>Age: ${monster.age}</p>
+            <p>Description: ${monster.description}</p>
+          `;
+
+          // Append the monster element to the container
+          container.appendChild(monsterElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching monsters:', error);
+      });
+  </script>
+</body>
+</html>
+
+<form id="monster-form">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name">
+
+  <label for="age">Age:</label>
+  <input type="number" id="age" name="age">
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description"></textarea>
+
+  <button type="submit">Create Monster</button>
+</form>
+
